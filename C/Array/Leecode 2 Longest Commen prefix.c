@@ -19,4 +19,6 @@ char* longestCommonPrefix(char** strs, int strsSize) {
     }
     return strs1;
 }
-//固定位置遍历字符串
+//题目链接；https://leetcode.cn/problems/longest-common-prefix/?envType=problem-list-v2&envId=array
+//思路；固定位置遍历字符串
+//easy
