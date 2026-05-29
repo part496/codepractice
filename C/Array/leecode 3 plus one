@@ -15,4 +15,5 @@ int* plusOne(int* digits, int digitsSize, int* returnSize){
     return ret;
 }
 //题目链接：https://leetcode.cn/problems/plus-one/?envType=problem-list-v2&envId=array
-//只有所有元素全是9的时候才需要扩展数组大小 其他时候正常加一进位即可即可
+//只有所有元素全是9的时候才需要扩展数组大小 其他时候正常加一进位即可
+//easy
