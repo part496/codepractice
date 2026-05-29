@@ -3,7 +3,7 @@ void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n) {
     for (int i = 0; i < m; i++){
         num[i] = nums1[i];
     }
-    int i = 0;
+    int i = 0;//相较下面的错误答案 这里通过ijk来分别管理num nums1 nums2 这样就不会越位了
     int j = 0;
     int k = 0;
     while (i < m && j < n){//当num与nums2都没有达到边界时 将num与nums2的值 比较填入
