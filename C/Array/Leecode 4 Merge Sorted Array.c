@@ -20,3 +20,25 @@ void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n) {
 }
 //题目链接:https://leetcode.cn/problems/merge-sorted-array/?envType=problem-list-v2&envId=array
 //easy
+//原代码
+//错误主要原因 p1和p2指针越位导致的代码出错
+void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n) {
+    int* num = (int*)malloc((nums1Size)*sizeof(int));
+    memset(num,100,sizeof(int)*(nums1Size));//不需要用memset
+    for (int i = 0; i < m; i++){
+        num[i] = nums1[i];
+    }
+    int* p1 = num;
+    int* p2 = nums2;
+    if (n != 0 && m != 0){
+        for (int i = 0; i < nums1Size; i++){
+            if(*p1 <= *p2) nums1[i] = *p1++;//没有控制p1和p2 假设p1走到了num的最后一位 p1还是会++ 这个时候就会超出已经定义的范围就会出现垃圾值
+            else nums1[i] = *p2++;//没有控制p2
+        }
+    }else if (n != 0 && m == 0){
+        for (int i = 0; i < nums2Size; i++){
+            nums1[i] = nums2[i];
+        }
+    }
+    free(num);
+}
