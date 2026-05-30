@@ -1,0 +1,19 @@
+int* plusOne(int* digits, int digitsSize, int* returnSize){
+    for (int i = digitsSize - 1; i >= 0; i--) {
+        if(digits[i] == 9)
+            digits[i] = 0;
+        else{
+            digits[i]++;
+            *returnSize = digitsSize;
+            return digits;
+       }
+   }
+    *returnSize = digitsSize + 1;
+    int *ret = (int*)malloc(sizeof(int)*(digitsSize + 1));
+    memset(ret,0,sizeof(int)*(digitsSize + 1));//将无定义处全部赋0
+    ret[0] = 1;
+    return ret;
+}
+//题目链接：https://leetcode.cn/problems/plus-one/?envType=problem-list-v2&envId=array
+//只有所有元素全是9的时候才需要扩展数组大小 其他时候正常加一进位即可
+//easy
