@@ -13,6 +13,9 @@
    - nums[mid] > target：搜索左半部分，right = mid - 1
    - nums[mid] == target：找到答案
 
+特别需要注意的一点 mid = left + (right - left) / 2是默认取左中位 当left = mid时会导致循环无法停止 这个时候需要写mid = left + (right - left + 1) / 2
+   同理 right = mid时需要用mid = left + (right - left) / 2
+
 class Solution {
     public int search(int[] nums, int target) {
        int left = 0;
@@ -83,8 +86,13 @@ class Solution {
 left 不满足 不满足 不满足  | 满足 满足 满足 right
                          ↑
                      找这个边界
+   这种情况时由于边界右一直满足 所以通常right = mid 因为mid有可能是答案需要保留
 
-
+或者
+left 满足 满足 满足 | 不满足 不满足 不满足 right
+                   ↑
+               找这个边界
+   这种情况时由于边界左一直满足 所以通常left = mid 因为mid有可能是答案需要保留
 编码思路
 1. 不对数组下标二分，而是确定“答案”的搜索范围 left ~ right。
 2. 取一个候选答案 mid。
@@ -95,6 +103,7 @@ left 不满足 不满足 不满足  | 满足 满足 满足 right
 5. 当 left == right 时得到最终答案。
 
 
+   
 class Solution {
     public int shipWithinDays(int[] weights, int days) {
         int count = 0;
