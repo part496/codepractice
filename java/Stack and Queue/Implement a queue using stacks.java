@@ -57,6 +57,7 @@ class MyQueue {
     }
 }
 
-题目链接
+//题目链接https://leetcode.cn/problems/implement-queue-using-stacks/
 
-https://leetcode.cn/problems/implement-queue-using-stacks/
+
+//这个题有一个特别要注意的点是 在将in里的所有元素搬到out里面后 在out没空之前以后pop就直接在out里面输出 输入依然在in里面进行 等out又空了之后再将in里面的元素搬进去
