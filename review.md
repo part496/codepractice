@@ -127,3 +127,25 @@ t.run();   // 当前线程直接执行
 
 ### 下次安排
 上述项目都是提示或讲解后才掌握，不应记为完全掌握。间隔复查并更换题目形式，避免短期重复；主要考查尚未充分检验的 JavaSE 内容，历史薄弱知识占多次复习的约 20% 至 30%。
+
+
+## 2026-11-12 JavaSE 复习记录（已结束）
+
+### 本次考查知识点与掌握情况
+
+1. **Iterator 快速失败机制（历史薄弱点）**：起初不知道 fail-fast，误以为 `list.set()` 和 `list.add()` 都触发；讲解 `modCount`、`expectedModCount` 后，理解 `set` 不改变结构，而 `add` 改变结构。对 `Iterator.remove()` 的计数同步先不清楚，提示后能独立判断“`it.remove()` 后通过 `list.add()` 修改，再调用 `it.next()` 会抛 `ConcurrentModificationException`”，且解释计数不一致。**状态：经讲解能应用，未证明稳定独立掌握；间隔复查。**
+2. **ArrayList / LinkedList 底层结构与复杂度（较少检验）**：独立选对高频按索引查询场景用 ArrayList；能推断 LinkedList 基于链表，但对在索引 50000 插入的定位过程误说“遍历到最后一个节点”。经纠正后，能独立说明拿到节点引用后插入为 O(1)。**状态：基本掌握，区分定位 O(n) 与已定位插入 O(1)。**
+3. **泛型不变性（新抽查）**：误认为 `String` 是 `Object` 子类就能将 `List<String>` 赋给 `List<Object>`。经反例提示，理解若允许就可通过 `List<Object>` 添加整数，破坏集合的编译期类型安全。**状态：提示后理解，尚未独立掌握；未来换场景复查。**
+4. **final 修饰引用（新抽查）**：独立判断 `final ArrayList<String> list` 可以 `add` 元素，但不可令 `list = new ArrayList<>()`；原话“禁止重新开辟引用”不够精确，澄清为不能给引用变量重新赋值、对象本身可变。**状态：核心理解正确，不需近期复查简单同类题。**
+5. **HashSet、equals/hashCode（历史薄弱点）**：看到 Student 只重写 `equals`，最初误判两个 name 相同就一定去重、`size=1`。重新讲解 HashSet 基于 HashMap、哈希值与 equals 的配合、只重写 equals 的隐患；讲解后能独立解释“哈希冲突、equals=false 时仍可存两个元素”。**状态：讲解后能应用，未独立掌握；后续间隔变式复查。**
+6. **HashMap get 与 containsKey（基础 API）**：起初忘记 `containsKey` 返回布尔值，且看漏没有 put C；提示后正确输出 `null、null、true、false`，理解 `get(key)==null` 无法区分“键不存在”和“存在但值为 null”。**状态：提示后掌握 API，不能以此评定 HashMap 底层原理。**
+7. **Java 引用类型参数的值传递（历史薄弱点，重点）**：对于数组参数，最初误判方法内 `arr = new int[]{20,30}` 会让主调方 `nums` 指向新数组，答 `[20,40]`。提示后又忽视前面的 `arr[0]=10`，误答原数组 `[1,2]`，再次提示后得出正确 `[10,2]`。**状态：多次提示才答对；区分通过引用修改对象与重新赋值局部引用，优先在后续间隔复习中变式测试。**
+8. **受检异常、throw/throws、异常传播与 try-catch（新薄弱点，重点）**：先认为原例编译失败仅因 main 未捕获，漏掉 readFile 内直接抛出受检 IOException 也需声明/处理；忘记 throw 与 throws 区别，讲解后能指出 readFile 需要 `throws IOException`。面对 main 同样声明 throws，误以为没有 try-catch 就不能编译；提示后改正可编译，但误以为仍会输出“程序结束”；再提示后明白未处理异常导致主线程异常终止而非卡住。最后对 catch 捕获异常后的代码仍误判不会执行，提示后改正 catch 正常完成后会继续运行 try-catch 后的语句。**状态：多次提示后理解；异常声明不等于处理、编译与运行、异常控制流都是薄弱点，后续重点复查。**
+
+### 下次复习安排
+
+- 本次已结束，不再出题。后续先读取本文件。
+- **重点薄弱点**：引用类型传参与局部引用重赋值；throw/throws 与受检异常、异常传播及 catch 后继续执行；泛型不变性；HashSet 的 equals/hashCode 契约。
+- **一般待巩固**：Iterator 快速失败与计数同步，LinkedList 按索引定位成本，HashMap 的 containsKey。
+- **已独立答对**：final 引用限制；高频索引查询选 ArrayList（对 LinkedList 插入成本的解释需纠正）。
+- 不要立刻重复今天相同的题；后续换代码或应用情境间隔复查。多次复习总体保持约 20%～30% 历史弱点，其余考尚未充分检验的已学内容；一次只出一题，先让用户独立回答。
