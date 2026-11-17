@@ -149,3 +149,29 @@ t.run();   // 当前线程直接执行
 - **一般待巩固**：Iterator 快速失败与计数同步，LinkedList 按索引定位成本，HashMap 的 containsKey。
 - **已独立答对**：final 引用限制；高频索引查询选 ArrayList（对 LinkedList 插入成本的解释需纠正）。
 - 不要立刻重复今天相同的题；后续换代码或应用情境间隔复查。多次复习总体保持约 20%～30% 历史弱点，其余考尚未充分检验的已学内容；一次只出一题，先让用户独立回答。
+
+
+## 2026-11-17 JavaSE 复习记录（已结束）
+
+### 本次考查与掌握情况
+
+1. **多态：实例字段、重写方法和强制类型转换**：面对 \`Animal a = new Dog()\`，最初把 \`a.age\` 误判为子类的 \`10\`，但能判断 \`a.show()\` 调用 \`Dog\` 的重写方法；提示后改正字段访问为 \`5\`。对 \`((Dog)a).age\` 独立答出 \`10\`，但误以为强转改变了变量 \`a\` 的声明类型，经纠正后理解只是转换表达式的编译时类型。**状态：依赖提示，需间隔变式复查字段隐藏、方法动态绑定、强转不改变原变量。**
+2. **synchronized 与对象锁**：面对两个不同的 \`Task\` 实例各调用同步实例方法，起初误判会互相等待，经过提示发现使用不同实例锁；随后的同一实例双线程变式独立答对必须互斥。**状态：提示后能够应用，需区分锁对象与线程本身，暂不重复同题。**
+3. **创建线程的三种经典方式与 run/start**：表示忘记 \`Runnable\`、Lambda 写法与 \`run()\`/ \`start()\`；讲解继承 Thread、实现 Runnable、Callable+FutureTask，以及 Lambda 实现 Runnable 后，独立答对先 \`t.run()\` 再 \`t.start()\` 会执行任务两次。**状态：创建方式与原理有遗忘，经讲解后局部应用正确，未来间隔复查。**
+4. **Stream filter/limit/count**：不记得 \`limit()\` 用途，讲解后误判先遍历并打印全部元素、把 \`count()\` 与筛选出的元素值混淆；经过短路与终结操作提示后推导出输出 \`12 1\`。**状态：多次提示，短路求值、惰性执行、count 返回元素数量仍属薄弱点。**
+5. **try/catch/finally 与 return**：独立答对 \`A、C、D、2、E\`；能解释即使 catch 中有 return 仍需先执行 finally，表述稍不够精确，经澄清后理解。**状态：本次独立正确，较 11-12 改善；不必近期再考相同形式；受检异常传播等其他薄弱点未由此证明掌握。**
+6. **HashMap 的键比较与 StringBuilder**：能独立说出哈希定位与 equals 判断的基本流程，但忘记 StringBuilder 未重写 equals/hashCode；对 \`map.get(b)\` 与 \`containsKey(b)\` 不确定，提示后答对 \`null、false、100\`。曾问未重写 hashCode 是否一定在相同存储位置，已解释不同对象哈希值/桶位置均无保证，哈希冲突不等于键相等。**状态：基本流程会，API 与 StringBuilder 默认对象语义仍需复查。**
+7. **UTF-8、字节数组打印**：起初不知道 \`"你好".getBytes(UTF_8).length\`，提示常见汉字占 3 字节后答出 6；其后独立判断 \`Arrays.toString(bytes)\` 是 6 个整数的展示、直接 \`println(bytes)\` 是类似 \`[B@...\` 的对象表示。**状态：数组展示形式改善；UTF-8 字节长度需巩固，注意 \`[B@...\` 非直接内存地址。**
+8. **Arrays.asList（明确要求纳入不会项的新知识）**：用户明确表示此前没学过 \`Arrays.asList()\`，最初推测返回普通集合、能继续 add；同时曾忘记 \`set(index,element)\` 的索引语义。讲解过 \`Arrays.asList()\` 返回固定大小 List，允许 set 替换元素，add/remove 改变长度会抛 \`UnsupportedOperationException\`；原题先输出 \`[100,20,30]\` 然后 add 抛异常。用户特别要求**按不会记录**，但注明这是**未学过的新知识盲区**，不是学过却忘。**状态：未独立验证，待未来学习和变式复查。**
+9. **ArrayList set 与 add(index, element)**：经过上题对 API 的解释后，独立答出 \`[10, 50, 100, 30]\`，正确区分替换与插入。**状态：本题正确，不需近期重复相同基础题。**
+10. **引用类型参数的值传递**：对集合参数 \`list.add("B"); list = new ArrayList<>(); list.add("C");\` 独立答出原集合 \`[A, B]\`，并准确解释局部引用重新赋值不改变外部的 \`names\`。**状态：本次独立正确，相比 11-12 有明显改善；可延长复习间隔，仍需未来不同场景确认稳定性。**
+11. **Integer null 与自动拆箱**：能区分 \`Integer == Integer\` 的引用比较和 \`Integer == int\` 的自动拆箱，但不理解 \`null\` 拆箱失败；提示 \`a.intValue()\` 后答出 \`NullPointerException\`。**状态：经提示理解，仍是待复查的旧薄弱点。**
+12. **方法重载的静态选择和 null**：独立正确判断 \`show(Object a)\` 与 \`show(String b)\` 分别输出 Object、String，却把 \`show(null)\` 误判 Object；提示“更具体的适用重载优先”后答 String。最终完整结果 \`Object、String、String\`。**状态：重载常规选择基本正确，null 与最具体方法选择规则需复查。**
+
+### 下次复习安排
+
+- 优先考查尚未充分检验但已学过的 JavaSE 内容，避免连续重考 \`ArrayList.set/add\`、同样的 \`run/start\` 和集合传参代码。
+- **优先间隔复查**：Stream 的短路与 count；Integer 对 null 拆箱；重载选择（含 null）；多态字段隐藏与强转表达式；synchronized 锁属于哪个对象；StringBuilder 作为 HashMap 键的 equals/hashCode 语义。
+- **新知识待补**：\`Arrays.asList()\` 的固定大小 List 及与普通 \`ArrayList\` 的区别，用户明确要求视为不会；下次需在其接受补充后用变式检查，不把本次解释算作独立掌握。
+- **已表现改善**：异常 finally/return、引用参数传递；按间隔复习延长复查时间，不立刻出同一模式题。
+- 整体保持约 20%～30% 旧薄弱点，剩余优先其他已学未充分检验的知识点；一次只提一题，先独立回忆再给提示。
